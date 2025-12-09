@@ -1,0 +1,33 @@
+# SenPlayer 专属分流规则（Loon 适配版）
+- name: "SenPlayer 核心域名直连/代理适配"
+  type: domain
+  domain:
+    - *.senplayer.com
+    - *.senplayer.net
+    - *.senplayer.org
+    - api.senplayer.com
+    - play.senplayer.com
+    - static.senplayer.com
+  action: PROXY  # 境外节点用PROXY，境内节点可改DIRECT，按需调整
+  enabled: true
+
+- name: "SenPlayer 流媒体协议适配"
+  type: tcp
+  port: [80, 443, 1935, 8080, 8443]  # 覆盖播放常用端口（含RTMP默认端口）
+  domain: *.senplayer.*
+  action: PROXY
+  enabled: true
+
+- name: "SenPlayer 关联IP段分流"
+  type: ip-cidr
+  ip-cidr:
+    - 185.xxx.xxx.0/24  # SenPlayer 常见境外IP段（可按实际检测补充）
+    - 203.xxx.xxx.0/24  # SenPlayer 境内加速IP段
+  action: PROXY  # 境外IP段用PROXY，境内IP段改DIRECT
+  enabled: true
+
+- name: "SenPlayer APP专属分流"
+  type: app
+  app: com.senplayer.player  # SenPlayer 官方APP包名（iOS/Android通用核心包名）
+  action: PROXY
+  enabled: true
