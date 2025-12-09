@@ -1,4 +1,4 @@
-# SenPlayer 专属分流规则（Loon 适配版）
+## SenPlayer 专属分流规则（Loon 适配版）
 - name: "SenPlayer 核心域名直连/代理适配"
   type: domain
   domain:
